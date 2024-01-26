@@ -1,0 +1,9 @@
+#Ghidra Lock File
+#Wed Jan 24 08:57:35 CET 2024
+OS\ Name=Linux
+OS\ Version=6.7.1-arch1-1
+Username=kippster
+Hostname=hackerman
+<META>\ Supports\ File\ Channel\ Locking=Channel Lock
+OS\ Architecture=amd64
+Timestamp=1/24/24, 8\:57 AM
