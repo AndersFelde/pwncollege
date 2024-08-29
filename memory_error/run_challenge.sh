@@ -1,16 +1,17 @@
-#!/bin/bash
+#!/bin/zsh
 if [ -z "$1" ]; then
     echo "Missing path to folder"
     exit 1
 fi
 
-if [ ! -d $1 ] then
+if [ ! -d "$1" ]; then
     echo "$1 is not a directory"
     exit 1
 fi
+
 cd $1
 
-if [ ! -r $1 ] then
+if [ ! -f "solve.py" ]; then
     echo "solve.py not found in $1"
     exit 1
 fi
