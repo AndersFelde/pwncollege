@@ -12,7 +12,8 @@ for file in ./*; do
     if [[ $file != *.c ]]; then
         # Run your command on the file
         pwn template $file > solve.py
-        auto_ghidra $file
+        ida64 $file & disown
+        #auto_ghidra $file
         break
     fi
 done
